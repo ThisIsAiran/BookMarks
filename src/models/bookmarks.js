@@ -16,8 +16,7 @@ const bookMarkSchema = new mongoose.Schema({
 	tags:[{
 		tag:{
 			type:String,
-			trim: true,
-			unique: true
+			trim: true
 		}
 	}]
 })
