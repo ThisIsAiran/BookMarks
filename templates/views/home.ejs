@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<style type="text/css">
+		body{
+			background: url('./Img/background2.jpg');
+			background-size: 100%, 40%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+		form{
+			width: 40%;
+			height: auto;
+			border: 1px solid #66FCF1;
+			text-align: center;
+			padding-bottom: 20px;
+		}
+		input{
+			width: 50%;
+			height: 30px;
+			margin: 4px;
+			padding-left: 10px;
+			color: white;
+			background: black;
+			border: 1px solid #66FCF1;
+			outline: none;
+			font-size: 17px;
+		}
+		.submit{
+			width: 120px;
+			color:#66FCF1;
+			cursor: pointer;
+			font-size: 20px;
+		}
+		.ListOfBookMarks{
+			width: 90%;
+		}
+		.heading{
+			color: #66FCF1;
+			font-size: 40px;
+			font-family: Sans-serif;
+		}
+		.headingList{
+			color: #66FCF1;
+			font-size: 40px;
+			font-family: Sans-serif;
+		}
+		.bookmarkAndTags{
+
+			flex:3;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+		.bookmark{
+			width: 350px;
+			border: 1px solid #66FCF1;
+			font-size: 20px;
+			text-align: center;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			margin:10px;
+			padding: 4px;
+		}
+		.title{
+			width: 90%;
+			margin: 5px;
+			text-decoration: none;
+			color:#66FCF1;
+		}
+		.delete{
+			width: 9%;
+			margin: 5px;
+			color: white;
+			transition-duration: .2s;
+		}
+		.delete:hover{
+			color: red;
+		}
+		.tag{
+			padding:4px;
+			border:1px solid #66FCF1;
+			color: #66FCF1;
+		}
+		.removetag{
+			color: white;
+			transition-duration: .2s;
+		}
+		.removetag:hover{
+			color: red;
+		}
+	</style>
+</head>
+<body>	
+	<form action="/AddingBookMark" method = "POST" id="">
+		<h1 class="heading">  Add a Book Mark</h1>
+		<input type="text" name="title" value="" placeholder="Title" required><br>
+		<input type="url" name="link" placeholder="Url", required><br>
+		<input type="text" name="tags" placeholder="Every tag separated with comma"><br>
+		<input class="submit" type="submit" name="Add">
+	</form>
+	<h2 class="headingList">Book Marks</h2>
+	<div class="ListOfBookMarks">
+		<% for(var i=0; i< bookmarks.length; i++) {%>
+		<div class="bookmarkAndTags">
+		<div class="bookmark">
+			<a class = "title" href= "<%= bookmarks[i].link%> ">	<%= bookmarks[i].title%>	</a>
+			<a class="delete" href="/removeBookmark/<%= bookmarks[i]._id%>"><i class="fa fa-trash-o" style="font-size:20px"></i></a>
+		</div>
+		<div class="tags">
+			<% for(var j=0; j< bookmarks[i].tags.length; j++) {%>
+			<a class="tag"><%= bookmarks[i].tags[j].tag%></a>
+			<a class="removetag" href="/removeTag/<%=bookmarks[i]._id%>/<%=bookmarks[i].tags[j]._id%>"><i class="fa fa-trash-o" style="font-size:15px"></i></a>
+			<% } %>
+		</div>
+		</div>
+		<% } %>
+	</div>
+</body>
+</html>
