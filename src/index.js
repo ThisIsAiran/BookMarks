@@ -15,17 +15,6 @@ app.set('views',viewsPath);
 
 require('./db/mongoose.js')
 
-app.get('/',async (req, res)=>{
-	try{
-		const bookmarks = await bookMarkModel.find();
-		res.render('home',{bookmarks:bookmarks})
-	}
-	catch(e)
-	{
-		res.send(e)
-	}
-})
-
 app.post('/AddingBookMark', urlencodedParser, async (req, res)=>{
 	const bookmark = new bookMarkModel({
 		'title':req.body.title,
@@ -76,6 +65,17 @@ app.get('/removeTag/:id/:tagId', async (req, res)=>{
 		}
 		await bookmark.save();
 		res.status(200).redirect('/')
+	}
+	catch(e)
+	{
+		res.send(e)
+	}
+})
+
+app.get('/',async (req, res)=>{
+	try{
+		const bookmarks = await bookMarkModel.find();
+		res.render('home',{bookmarks:bookmarks})
 	}
 	catch(e)
 	{
